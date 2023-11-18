@@ -1,0 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+body {
+
+    
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+background: #4A2D60;
+color: white;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+
+height: 4rem;
+}
+
+
+
+.container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    
+
+}
+
+
+
+video {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 8%;
+    max-width: 1440px;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 1440px;
+}
+
+

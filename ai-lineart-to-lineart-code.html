@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+  <title>Word Spaces Line Art</title>
+</head>
+<body>
+  <textarea id="storyInput" placeholder="Enter your story here"></textarea>
+  <button onclick="generateLineArt()">Generate Line Art</button>
+  <canvas id="lineArtCanvas" width="800" height="600"></canvas>
+
+  <script>
+    // Get the elements
+    const storyInput = document.getElementById('storyInput');
+    const canvas = document.getElementById('lineArtCanvas');
+    const context = canvas.getContext('2d');
+
+    // Function to generate random line art with rainbow colors based on word spaces
+    function generateLineArt() {
+      const story = storyInput.value;
+
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Split the story into words
+      const words = story.split(/\s+/);
+
+      // Draw random lines based on word positions with rainbow colors
+      for (let i = 0; i < words.length; i++) {
+        // Set up the context properties (line width)
+        context.lineWidth = 2;
+
+        // Calculate rainbow color based on the position in the word array
+        const rainbowColor = `hsl(${(i / words.length) * 360}, 100%, 50%)`;
+        context.strokeStyle = rainbowColor;
+
+        // Randomize line start point
+        const x1 = Math.random() * canvas.width;
+        const y1 = Math.random() * canvas.height;
+
+        // Set line end point based on word position
+        const x2 = i * 30; // Adjust the multiplier for spacing
+        const y2 = 100;
+
+        // Draw the line
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.stroke();
+      }
+    }
+  </script>
+</body>
+</html>
