@@ -33,6 +33,7 @@ height: 4rem;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
+    position:relative;
     
 
 }
@@ -43,6 +44,8 @@ video {
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
+    position:relative;
+
 }
 
 .logo {
@@ -55,4 +58,51 @@ video {
     max-width: 1440px;
 }
 
+.index-title {
+    position:absolute;
+    top:250px;
+    left:510px;
+    z-index:1;
+    font-family: Courier;
+    font-weight: bolder;
+    color: white;
+    font-size: 2rem;
+    background-color: rgba(50, 23, 71,.7);
+    padding: 8px;
+}
+
+.index-btn {
+    position:absolute;
+    top:450px;
+    left:670px;
+    z-index:1;
+    font-family: Courier;
+    font-weight: normal;
+    color: white;
+    font-size: 1.5rem;
+    background-color: rgba(50, 23, 71,.7);
+    border-radius: 20px;
+    padding: 12px;
+    border-color:white;
+
+}
+
+.generate-btn {
+    font-family: Courier;
+    font-weight: normal;
+    color: white;
+    font-size: 1rem;
+    background-color: rgba(50, 23, 71,.7);
+    
+}
+
+.ai-background {
+    background-image: url(pics/nasa--hI5dX2ObAs-unsplash.jpg);
+    width: 100%;
+    max-width: 1440px;
+    
+    
+    
+
+}
 

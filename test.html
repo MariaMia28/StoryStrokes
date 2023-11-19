@@ -1,0 +1,80 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+
+const fetch = require('node-fetch');
+const FormData = require('form-data');
+const fs = require('fs');
+
+const api_key = "<YOUR_API_KEY>";
+const authorization = `Bearer ${api_key}`;
+
+const headers = {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "authorization": authorization
+};
+
+app.get('/generate-image', async (req, res) => {
+    try {
+        const initImageUrl = "https://cloud.leonardo.ai/api/rest/v1/init-image";
+        const initImagePayload = { "extension": "jpg" };
+
+        const initImageResponse = await fetch(initImageUrl, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(initImagePayload)
+        });
+
+        const initData = await initImageResponse.json();
+        const fields = initData.uploadInitImage.fields;
+        const uploadUrl = initData.uploadInitImage.url;
+        const image_id = initData.uploadInitImage.id;
+
+        const image_file_path = "/workspace/test.jpg";
+        const formData = new FormData();
+        formData.append('file', fs.createReadStream(image_file_path));
+
+        const uploadImageResponse = await fetch(uploadUrl, {
+            method: 'POST',
+            body: formData,
+        });
+
+        console.log(uploadImageResponse.status);
+
+        const generateUrl = "https://cloud.leonardo.ai/api/rest/v1/generations";
+        const generatePayload = {
+            "height": 512,
+            "modelId": "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",
+            "prompt": "An oil painting of a cat",
+            "width": 512,
+            "imagePrompts": [image_id]
+        };
+
+        const generateImageResponse = await fetch(generateUrl, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(generatePayload)
+        });
+
+        console.log(generateImageResponse.status);
+
+        const generateData = await generateImageResponse.json();
+        const generation_id = generateData.sdGenerationJob.generationId;
+        const generationUrl = `https://cloud.leonardo.ai/api/rest/v1/generations/${generation_id}`;
+
+        await new Promise(resolve => setTimeout(() => resolve(), 20000));
+
+        const finalGenerationResponse = await fetch(generationUrl, { headers: headers });
+        const finalGenerationText = await finalGenerationResponse.text();
+
+        res.send(finalGenerationText);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});

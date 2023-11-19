@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <style>
     canvas {
       border: 1px solid #000;
@@ -10,9 +11,9 @@
   </style>
   <title>Word Spaces Line Art</title>
 </head>
-<body>
+<body class="ai-background">
   <textarea id="storyInput" placeholder="Enter your story here"></textarea>
-  <button onclick="generateLineArt()">Generate Line Art</button>
+  <button class="generate-btn" onclick="generateLineArt()">Generate Line Art</button>
   <canvas id="lineArtCanvas" width="800" height="600"></canvas>
 
   <script>
